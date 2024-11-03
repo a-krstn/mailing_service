@@ -17,7 +17,7 @@ class Mailing(models.Model):
     end_time = models.DateTimeField(
         verbose_name='Дата и время окончания рассылки'
         )
-    filter = models.JSONField(
+    filters = models.JSONField(
         null=True,
         verbose_name='Фильтр свойств клиентов'
         )

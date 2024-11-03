@@ -14,7 +14,7 @@ class MailingSerializer(serializers.ModelSerializer):
             'id',
             'start_time',
             'end_time',
-            'filter',
+            'filters',
             'text',
             )
         

@@ -20,12 +20,12 @@ def send_mailing(mailing_id: int) -> None:
     clients = Client.objects.all()
 
     # фильтрация клиентов по фильтрам рассылки
-    if mailing.filter:
-        if 'operator_code' in mailing.filter:
-            clients = clients.filter(operator_code=mailing.filter['operator_code'])
+    if mailing.filters:
+        if 'operator_code' in mailing.filters:
+            clients = clients.filter(operator_code=mailing.filters['operator_code'])
 
-        if 'tag' in mailing.filter:
-            clients = clients.filter(tag=mailing.filter['tag'])
+        if 'tag' in mailing.filters:
+            clients = clients.filter(tag=mailing.filters['tag'])
 
     # отправка рассылки клиентам с проверкой времени её окончания
     for client in clients:
