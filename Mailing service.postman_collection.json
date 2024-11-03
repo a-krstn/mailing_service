@@ -1,0 +1,331 @@
+{
+	"info": {
+		"_postman_id": "ebf11977-79f1-456f-bb9a-f69970aa5e89",
+		"name": "Mailing service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29775216"
+	},
+	"item": [
+		{
+			"name": "Mailing List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 1: start_time>now",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"2024-11-03T23:00:00+03:00\",\r\n    \"end_time\": \"2024-11-03T23:01:00+03:00\",\r\n    \"text\": \"Время запуска рассылки больше текущего времени. Запуск произойдет по расписанию.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 2: start_time<now",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"2024-11-03T22:00:00+03:00\",\r\n    \"end_time\": \"2024-11-03T23:01:00+03:00\",\r\n    \"text\": \"Время запуска рассылки меньше текущего времени. Запуск произойдет немедленно.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 3: end_time<=now",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"2024-11-03T23:00:00+03:00\",\r\n    \"end_time\": \"2024-11-03T23:01:00+03:00\",\r\n    \"text\": \"Время окончания рассылки <= текущее время. Ошибка 400.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 4: short time",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"2024-11-03T23:00:00+03:00\",\r\n    \"end_time\": \"2024-11-03T23:00:03+03:00\",\r\n    \"text\": \"Короткий интервал работы рассылки. Рассылка отправится не всем клиентам.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 5: no start_time",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"end_time\": \"2024-11-03T23:05:00+03:00\",\r\n    \"text\": \"Не передан start_time. Ошибка 400.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 6: no end_time",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"2024-11-03T23:00:00+03:00\",\r\n    \"text\": \"Не передан end_time. Ошибка 400.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 7: no text",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"2024-11-03T23:00:00+03:00\",\r\n    \"end_time\": \"2024-11-03T23:05:00+03:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 8: operator_code filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"2024-11-03T23:00:00+03:00\",\r\n    \"end_time\": \"2024-11-03T23:01:00+03:00\",\r\n    \"filters\": {\r\n        \"operator_code\": \"900\"\r\n    },\r\n    \"text\": \"Рассылка отправится всем клиентам с кодом оператора 900.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 9: tag filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"2024-11-03T23:00:00+03:00\",\r\n    \"end_time\": \"2024-11-03T23:01:00+03:00\",\r\n    \"filters\": {\r\n        \"tag\": \"МТС\"\r\n    },\r\n    \"text\": \"Рассылка отправится всем клиентам МТС.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mailing Case 10: both filters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"2024-11-03T23:00:00+03:00\",\r\n    \"end_time\": \"2024-11-03T23:01:00+03:00\",\r\n    \"filters\": {\r\n        \"operator_code\": \"900\",\r\n        \"tag\": \"МТС\"\r\n    },\r\n    \"text\": \"Рассылка отправится всем клиентам МТС с кодом оператора 900.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/mailings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"mailings",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
