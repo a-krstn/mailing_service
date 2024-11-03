@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 
 class Mailing(models.Model):
@@ -17,6 +18,7 @@ class Mailing(models.Model):
         verbose_name='Дата и время окончания рассылки'
         )
     filter = models.JSONField(
+        null=True,
         verbose_name='Фильтр свойств клиентов'
         )
     
@@ -65,6 +67,13 @@ class Client(models.Model):
         """
 
         return f'{self.pk}:{self.phone_number}'
+    
+    def clean(self):
+        super().clean()
+        if not self.phone_number.startswith('7'):
+            raise ValidationError('Номер телефона должен начинаться с цифры 7.')
+        if not self.phone_number.isdigit():
+            raise ValidationError('Номер телефона должен состоять только из цифр.')
 
 
 class Message(models.Model):
