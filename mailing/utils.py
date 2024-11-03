@@ -6,4 +6,4 @@ def send_sms(phone_number: str, text: str) -> None:
     """
     
     sleep(1)
-    print(text)
+    print(f'{phone_number}:{text}')

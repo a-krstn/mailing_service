@@ -1,6 +1,6 @@
-from django.utils import timezone
-
 from celery import shared_task
+
+from django.utils import timezone
 
 from .models import Mailing, Client, Message
 from .utils import send_sms
@@ -51,16 +51,12 @@ def check_and_start_mailings() -> None:
 
     # получение списка идентификаторов выполненных рассылок
     completed_mailing_ids = redis_services.get_list('mailing_ids')
-    print(completed_mailing_ids)
 
     # получение рассылок из БД, у которых время запуска меньше текущего времени, исключая уже выполненные рассылки
     mailings_to_start = Mailing.objects.filter(start_time__lte=current_time).exclude(pk__in=completed_mailing_ids)
 
     # запуск рассылки с проверкой времени окончания
     if mailings_to_start:
-        print(mailings_to_start)
         for mailing in mailings_to_start:
             if timezone.now() <= mailing.end_time:
                 send_mailing.delay(mailing.id)
-    else:
-        print('Нет рассылок для выполнения')
